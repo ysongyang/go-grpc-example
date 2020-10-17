@@ -1,7 +1,7 @@
 package main
 
 import (
-	"client/services"
+	. "client/services"
 	"context"
 	"fmt"
 	"google.golang.org/grpc"
@@ -35,12 +35,19 @@ func main() {
 
 	defer conn.Close()
 
-	prodClient := services.NewProdServiceClient(conn)
-	prodResp, err := prodClient.GetProdStock(context.Background(), &services.ProdRequest{
+	prodClient := NewProdServiceClient(conn)
+
+	ctx := context.Background()
+
+	/*prodResp, err := prodClient.GetProdStock(context.Background(), &ProdRequest{
 		ProdId: 1,
-	})
+	})*/
+
+	resp, err := prodClient.GetProdStocks(ctx, &QuerySize{Size: 10})
+
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(prodResp.ProdStock)
+	fmt.Println(resp.ProdList)
+
 }

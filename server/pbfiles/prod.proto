@@ -17,6 +17,11 @@ message QuerySize{
   int32 size = 1; //页码尺寸
 }
 
+
+message ProdRespList{
+  repeated ProdResponse prodList = 1;  //修饰符
+}
+
 service ProdService{
   rpc GetProdStock(ProdRequest) returns(ProdResponse){
     option (google.api.http) = {
@@ -24,5 +29,5 @@ service ProdService{
     };
   };
 
-  rpc GetProdStocks(QuerySize) returns();
+  rpc GetProdStocks(QuerySize) returns(ProdRespList){};
 }
