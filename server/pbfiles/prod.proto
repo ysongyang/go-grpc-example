@@ -7,6 +7,7 @@ option go_package = "../services";
 
 message ProdRequest{
   int32 prodId = 1;
+  ProAreas proArea = 2;
 }
 
 message ProdResponse{
@@ -20,6 +21,12 @@ message QuerySize{
 
 message ProdRespList{
   repeated ProdResponse prodList = 1;  //修饰符
+}
+
+enum ProAreas{
+  A = 0; //必须是0 表示默认值
+  B = 1;
+  C = 2;
 }
 
 service ProdService{

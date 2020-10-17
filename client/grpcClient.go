@@ -39,15 +39,20 @@ func main() {
 
 	ctx := context.Background()
 
-	/*prodResp, err := prodClient.GetProdStock(context.Background(), &ProdRequest{
-		ProdId: 1,
-	})*/
+	resp, err := prodClient.GetProdStock(ctx, &ProdRequest{
+		ProdId:  1,
+		ProArea: ProAreas_B,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(resp.ProdStock)
 
-	resp, err := prodClient.GetProdStocks(ctx, &QuerySize{Size: 10})
+	/*resp, err := prodClient.GetProdStocks(ctx, &QuerySize{Size: 10})
 
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(resp.ProdList)
+	fmt.Println(resp.ProdList)*/
 
 }

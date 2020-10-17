@@ -7,8 +7,21 @@ import (
 type ProdService struct {
 }
 
-func (*ProdService) GetProdStock(context.Context, *ProdRequest) (*ProdResponse, error) {
-	return &ProdResponse{ProdStock: 20}, nil
+func (*ProdService) GetProdStock(ctx context.Context, req *ProdRequest) (*ProdResponse, error) {
+	var stock int32 = 0
+	switch req.ProArea {
+	case ProAreas_A:
+		stock = 100
+		break
+	case ProAreas_B:
+		stock = 201
+		break
+	case ProAreas_C:
+		stock = 31
+		break
+	}
+
+	return &ProdResponse{ProdStock: stock}, nil
 }
 
 // @title 实现GetProdStocks方法
