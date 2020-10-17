@@ -1,0 +1,28 @@
+syntax = "proto3";
+package services;
+
+import "google/api/annotations.proto";
+
+option go_package = "../services";
+
+message ProdRequest{
+  int32 prodId = 1;
+}
+
+message ProdResponse{
+  int32 prodStock = 1;
+}
+
+message QuerySize{
+  int32 size = 1; //页码尺寸
+}
+
+service ProdService{
+  rpc GetProdStock(ProdRequest) returns(ProdResponse){
+    option (google.api.http) = {
+      get: "/v1/prod/{prodId}"
+    };
+  };
+
+  rpc GetProdStocks(QuerySize) returns();
+}
