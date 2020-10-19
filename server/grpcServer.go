@@ -29,12 +29,14 @@ func main() {
 
 	gRpcService := grpc.NewServer()
 
-	RegisterProdServiceServer(gRpcService, new(ProdService))
+	RegisterProdServiceServer(gRpcService, new(ProdService))   //注册商品服务
+	RegisterOrderServiceServer(gRpcService, new(OrderService)) //注册订单服务
+	RegisterUserServiceServer(gRpcService, new(UserService))   //注册用户服务
 	listen, err := net.Listen("tcp", ":8081")
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println("grpc-server run")
+	fmt.Println("grpc-server is running...")
 	err = gRpcService.Serve(listen)
 	if err != nil {
 		fmt.Println(err)

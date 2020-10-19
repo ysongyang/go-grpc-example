@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"fmt"
 )
 
 type ProdService struct {
@@ -20,7 +21,7 @@ func (*ProdService) GetProdStock(ctx context.Context, req *ProdRequest) (*ProdRe
 		stock = 31
 		break
 	}
-
+	fmt.Println(req)
 	return &ProdResponse{ProdStock: stock}, nil
 }
 
@@ -35,4 +36,9 @@ func (*ProdService) GetProdStocks(ctx context.Context, in *QuerySize) (*ProdResp
 		&ProdResponse{ProdStock: 24},
 	}
 	return &ProdRespList{ProdList: prodRes}, nil
+}
+
+func (*ProdService) GetProdInfo(context.Context, *ProdRequest) (*ProdModel, error) {
+	ret := &ProdModel{ProdId: 101, ProdName: "测试商品", ProdPrice: 20.5}
+	return ret, nil
 }

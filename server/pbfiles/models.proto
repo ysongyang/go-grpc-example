@@ -1,0 +1,36 @@
+syntax = "proto3";
+package services;
+option go_package = "../services";
+import "google/protobuf/timestamp.proto";
+//import "validate.proto";
+//商品模型
+message ProdModel{
+  int32 prodId = 1;
+  string prodName = 2;
+  float prodPrice = 3;
+}
+
+//订单模型
+message OrderModel{
+  int32 orderId = 1;
+  string orderNo = 2;
+  int32  userId = 3;
+  float orderMoney = 4;  //[(validate.rules).float.gt = 1]
+  google.protobuf.Timestamp orderTime = 5; //订单时间
+  repeated OrderDetail orderDetails = 6;  //嵌套模型
+}
+
+//子订单模型
+message OrderDetail{
+  int32 detailId = 1;
+  string orderNo = 2;
+  int32  prodId = 3;
+  float prodPrice = 4;
+  int32 prodNum = 5;
+}
+
+//用户模型
+message UserInfo{
+  int32 userId = 1;
+  int32 userScore = 2;
+}

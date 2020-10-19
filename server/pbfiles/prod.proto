@@ -2,6 +2,8 @@ syntax = "proto3";
 package services;
 
 import "google/api/annotations.proto";
+//引用外部proto
+import "models.proto";
 
 option go_package = "../services";
 
@@ -37,4 +39,6 @@ service ProdService{
   };
 
   rpc GetProdStocks(QuerySize) returns(ProdRespList){};
+
+  rpc GetProdInfo(ProdRequest) returns(ProdModel){};
 }

@@ -1,0 +1,25 @@
+syntax = "proto3";
+package services;
+//引用外部proto
+import "models.proto";
+import "google/api/annotations.proto";
+option go_package = "../services";
+
+
+message OrderRequest{
+  OrderModel orderModel = 1;
+}
+
+message OrderResponse{
+  string status = 1;
+  string message = 2;
+}
+
+service OrderService{
+  rpc NewOrder(OrderRequest) returns(OrderResponse){
+    option (google.api.http) = {
+      post: "/v1/orders"
+      body: "orderModel"
+    };
+  }
+}
