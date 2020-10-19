@@ -76,14 +76,15 @@ func main() {
 	}*/
 
 	/*
-		var i int32
-		req := UserScoreRequest{}
-		req.Users = make([]*UserInfo, 0)
-		for i = 1; i <= 100; i++ {
-			req.Users = append(req.Users, &UserInfo{UserId: i})
-		}
-		resp, err := userClient.GetUserScore(ctx, &req)
-		fmt.Println(resp.Users)*/
+		//服务端流
+			var i int32
+			req := UserScoreRequest{}
+			req.Users = make([]*UserInfo, 0)
+			for i = 1; i <= 100; i++ {
+				req.Users = append(req.Users, &UserInfo{UserId: i})
+			}
+			resp, err := userClient.GetUserScore(ctx, &req)
+			fmt.Println(resp.Users)*/
 
 	/*respStream, err := userClient.GetUserScoreByServerStream(ctx, &req)
 	if err != nil {
@@ -100,27 +101,30 @@ func main() {
 		fmt.Println(resp.Users)
 	}*/
 
-	/*respStream, err := userClient.GetUserScoreByClientStream(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
-	var i int32
-
-	for j := 1; j <= 3; j++ {
-		req := UserScoreRequest{}
-		req.Users = make([]*UserInfo, 0)
-		for i = 1; i <= 5; i++ {
-			req.Users = append(req.Users, &UserInfo{UserId: i})
-		}
-
-		err := respStream.Send(&req)
+	/*
+		//客户端流
+		respStream, err := userClient.GetUserScoreByClientStream(ctx)
 		if err != nil {
 			log.Fatal(err)
 		}
-	}
-	resp, _ := respStream.CloseAndRecv()
-	fmt.Println(resp.Users)*/
+		var i int32
 
+		for j := 1; j <= 3; j++ {
+			req := UserScoreRequest{}
+			req.Users = make([]*UserInfo, 0)
+			for i = 1; i <= 5; i++ {
+				req.Users = append(req.Users, &UserInfo{UserId: i})
+			}
+
+			err := respStream.Send(&req)
+			if err != nil {
+				log.Fatal(err)
+			}
+		}
+		resp, _ := respStream.CloseAndRecv()
+		fmt.Println(resp.Users)*/
+
+	//双向流
 	respStream, err := userClient.GetUserScoreByTws(ctx)
 	if err != nil {
 		log.Fatal(err)
